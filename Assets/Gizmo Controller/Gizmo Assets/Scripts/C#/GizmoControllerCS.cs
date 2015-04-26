@@ -42,7 +42,7 @@ public class GizmoControllerCS : MonoBehaviour
     #region Private Variables
 
     private GIZMO_MODE _mode;
-    private Transform _selectedObject;
+    public Transform SelectedObject { get; private set; }
     private bool _showGizmo = false;
 
     private GIZMO_AXIS _activeAxis = GIZMO_AXIS.NONE;
@@ -97,7 +97,7 @@ public class GizmoControllerCS : MonoBehaviour
     //Pass in GIZMO_MODE value which will set the current mode of the gizmo control
     public void Show(GIZMO_MODE mode)
     {
-        if (_selectedObject == null)
+        if (SelectedObject == null)
             return;
 
         foreach (Transform t in transform)
@@ -125,7 +125,7 @@ public class GizmoControllerCS : MonoBehaviour
                 t.GetComponent<Collider>().isTrigger = true;
         }//for
 
-        _selectedObject = null;
+        SelectedObject = null;
         _selectedAxis = null;
         _showGizmo = false;
     }//Hide
@@ -163,12 +163,12 @@ public class GizmoControllerCS : MonoBehaviour
 
     public void ResetTransformToSelectedObject()
     {
-        if (_selectedObject == null)
+        if (SelectedObject == null)
             return;
 
-        transform.position = _selectedObject.position;
+        transform.position = SelectedObject.position;
         if (_mode != GIZMO_MODE.TRANSLATE)
-            transform.rotation = _selectedObject.rotation;
+            transform.rotation = SelectedObject.rotation;
     }//ResetPositionToSelectedObject
 
     //Set's the allowable modes for the Gizmo
@@ -192,11 +192,11 @@ public class GizmoControllerCS : MonoBehaviour
         transform.rotation = Quaternion.identity;
         transform.localScale = Vector3.one;
 
-        if (_selectedObject != null)
+        if (SelectedObject != null)
         {
-            _selectedObject.transform.position = transform.position;
-            _selectedObject.transform.rotation = transform.rotation;
-            _selectedObject.transform.localScale = Vector3.one;
+            SelectedObject.transform.position = transform.position;
+            SelectedObject.transform.rotation = transform.rotation;
+            SelectedObject.transform.localScale = Vector3.one;
         }//if
 
         _XRotationDisplayValue = 0;
@@ -207,7 +207,7 @@ public class GizmoControllerCS : MonoBehaviour
     #region OnGUI
     void OnGUI()
     {
-        if (_selectedObject == null)
+        if (SelectedObject == null)
             return;
 
         if (_draggingAxis && _mode == GIZMO_MODE.ROTATE)
@@ -283,7 +283,7 @@ public class GizmoControllerCS : MonoBehaviour
                                                         AxisSpinner.Draw(new Rect(0, 47, innerRect.width, 20), "Y:", transform.position.y),
                                                         AxisSpinner.Draw(new Rect(0, 69, innerRect.width, 20), "Z:", transform.position.z));
                     transform.position = guiTranslation;
-                    _selectedObject.transform.position = transform.position;
+                    SelectedObject.transform.position = transform.position;
                     Snapping = GUI.Toggle(new Rect(0, 94, innerRect.width, 20), Snapping, "Snap Mode");
                     MoveSnapIncrement = SnapSpinner.Draw(new Rect(0, 114, innerRect.width, 20), "Snap By:", MoveSnapIncrement, 1);
                 }//if
@@ -308,10 +308,10 @@ public class GizmoControllerCS : MonoBehaviour
                                                         AxisSpinner.Draw(new Rect(0, 47, innerRect.width, 20), "Y:", transform.rotation.eulerAngles.y),
                                                         AxisSpinner.Draw(new Rect(0, 69, innerRect.width, 20), "Z:", transform.rotation.eulerAngles.z));
                         transform.rotation = Quaternion.Euler(guiAngles);
-                        if (GUI.changed || _selectedObject.transform.rotation != transform.rotation)
+                        if (GUI.changed || SelectedObject.transform.rotation != transform.rotation)
                         {
                             GUI.changed = false;
-                            _selectedObject.transform.rotation = transform.rotation;
+                            SelectedObject.transform.rotation = transform.rotation;
                         }//if
                     }//if
 
@@ -327,10 +327,10 @@ public class GizmoControllerCS : MonoBehaviour
             case GIZMO_MODE.SCALE:
                 if (AllowScale)
                 {
-                    Vector3 guiScale = new Vector3(AxisSpinner.Draw(new Rect(0, 25, innerRect.width, 20), "X:", _selectedObject.localScale.x),
-                                                    AxisSpinner.Draw(new Rect(0, 47, innerRect.width, 20), "Y:", _selectedObject.localScale.y),
-                                                    AxisSpinner.Draw(new Rect(0, 69, innerRect.width, 20), "Z:", _selectedObject.localScale.z));
-                    _selectedObject.localScale = guiScale;
+                    Vector3 guiScale = new Vector3(AxisSpinner.Draw(new Rect(0, 25, innerRect.width, 20), "X:", SelectedObject.localScale.x),
+                                                    AxisSpinner.Draw(new Rect(0, 47, innerRect.width, 20), "Y:", SelectedObject.localScale.y),
+                                                    AxisSpinner.Draw(new Rect(0, 69, innerRect.width, 20), "Z:", SelectedObject.localScale.z));
+                    SelectedObject.localScale = guiScale;
                     Snapping = GUI.Toggle(new Rect(0, 94, innerRect.width, 20), Snapping, "Snap Mode");
                     ScaleSnapIncrement = SnapSpinner.Draw(new Rect(0, 114, innerRect.width, 20), "Snap By:", ScaleSnapIncrement, 1);
                 }//if
@@ -379,7 +379,7 @@ public class GizmoControllerCS : MonoBehaviour
 
     void Update()
     {
-        if (!_showGizmo || _selectedObject == null)
+        if (!_showGizmo || SelectedObject == null)
             return;
 
         if (EnableShortcutKeys)
@@ -523,7 +523,7 @@ public class GizmoControllerCS : MonoBehaviour
                                     }//else
 
                                     transform.position = objPos;
-                                    _selectedObject.transform.position = transform.position;
+                                    SelectedObject.transform.position = transform.position;
                                 }//if						
                             }//if					
 
@@ -543,14 +543,14 @@ public class GizmoControllerCS : MonoBehaviour
 
                                 _XRotationDisplayValue += snapValue;
                                 transform.rotation *= Quaternion.AngleAxis(snapValue, Vector3.right);
-                                _selectedObject.transform.rotation = transform.rotation;
+                                SelectedObject.transform.rotation = transform.rotation;
                             }//if
                             else
                             {
                                 rotXDelta *= RotationSpeed;
                                 _XRotationDisplayValue += rotXDelta;
                                 transform.Rotate(Vector3.right * rotXDelta);
-                                _selectedObject.transform.rotation = transform.rotation;
+                                SelectedObject.transform.rotation = transform.rotation;
                             }//else
 
 
@@ -582,7 +582,7 @@ public class GizmoControllerCS : MonoBehaviour
                                         objMovement = transform.right * _translationDelta.x;
                                     }//else
 
-                                    _selectedObject.transform.localScale += objMovement;
+                                    SelectedObject.transform.localScale += objMovement;
                                 }//if						
                             }//if		
 
@@ -624,7 +624,7 @@ public class GizmoControllerCS : MonoBehaviour
                                     }//else
 
                                     transform.position = objPos;
-                                    _selectedObject.transform.position = transform.position;
+                                    SelectedObject.transform.position = transform.position;
                                 }//if							
                             }//if						
 
@@ -644,14 +644,14 @@ public class GizmoControllerCS : MonoBehaviour
 
                                 _YRotationDisplayValue += snapValue;
                                 transform.rotation *= Quaternion.AngleAxis(snapValue, Vector3.up);
-                                _selectedObject.transform.rotation = transform.rotation;
+                                SelectedObject.transform.rotation = transform.rotation;
                             }//if
                             else
                             {
                                 rotYDelta *= RotationSpeed;
                                 _YRotationDisplayValue += rotYDelta;
                                 transform.Rotate(Vector3.up * rotYDelta);
-                                _selectedObject.transform.rotation = transform.rotation;
+                                SelectedObject.transform.rotation = transform.rotation;
                             }//else
 
                             _YRotationDisplayValue = ClampRotationAngle((float)_YRotationDisplayValue);
@@ -682,7 +682,7 @@ public class GizmoControllerCS : MonoBehaviour
                                         objMovement = Vector3.up * _translationDelta.y;
                                     }//else
 
-                                    _selectedObject.transform.localScale += objMovement;
+                                    SelectedObject.transform.localScale += objMovement;
                                 }//if						
                             }//if		
 
@@ -724,7 +724,7 @@ public class GizmoControllerCS : MonoBehaviour
                                     }//else
 
                                     transform.position = objPos;
-                                    _selectedObject.transform.position = transform.position;
+                                    SelectedObject.transform.position = transform.position;
                                 }//if							
                             }//if						
 
@@ -744,7 +744,7 @@ public class GizmoControllerCS : MonoBehaviour
 
                                 _ZRotationDisplayValue += snapValue;
                                 transform.rotation *= Quaternion.AngleAxis(snapValue, Vector3.forward);
-                                _selectedObject.transform.rotation = transform.rotation;
+                                SelectedObject.transform.rotation = transform.rotation;
                             }//if
                             else
                             {
@@ -752,7 +752,7 @@ public class GizmoControllerCS : MonoBehaviour
                                 _ZRotationDisplayValue += rotZDelta;
 
                                 transform.Rotate(Vector3.forward * rotZDelta);
-                                _selectedObject.transform.rotation = transform.rotation;
+                                SelectedObject.transform.rotation = transform.rotation;
                             }//else
 
                             _ZRotationDisplayValue = ClampRotationAngle((float)_ZRotationDisplayValue);
@@ -783,7 +783,7 @@ public class GizmoControllerCS : MonoBehaviour
                                         objMovement = Vector3.forward * _translationDelta.z;
                                     }//else
 
-                                    _selectedObject.transform.localScale += objMovement;
+                                    SelectedObject.transform.localScale += objMovement;
                                 }//if						
                             }//if		
 
@@ -803,7 +803,7 @@ public class GizmoControllerCS : MonoBehaviour
             return;
 
         transform.position = ObjectTransform.transform.position;
-        _selectedObject = ObjectTransform;
+        SelectedObject = ObjectTransform;
 
         SetMode(_mode);
 
@@ -821,15 +821,15 @@ public class GizmoControllerCS : MonoBehaviour
         switch (_mode)
         {
             case GIZMO_MODE.TRANSLATE:
-                transform.rotation = TranslateInLocalSpace ? _selectedObject.transform.rotation : Quaternion.identity;
+                transform.rotation = TranslateInLocalSpace ? SelectedObject.transform.rotation : Quaternion.identity;
                 break;
 
             case GIZMO_MODE.ROTATE:
-                transform.rotation = _selectedObject.transform.rotation;
+                transform.rotation = SelectedObject.transform.rotation;
                 break;
 
             case GIZMO_MODE.SCALE:
-                transform.rotation = _selectedObject.transform.rotation;
+                transform.rotation = SelectedObject.transform.rotation;
                 break;
         }//switch
 

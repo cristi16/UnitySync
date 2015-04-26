@@ -1,0 +1,354 @@
+Initialize engine version: 5.0.0f4 (5b98b70ebeb9)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 10.1]
+    Renderer: Intel(R) HD Graphics 3000 (ID=0x116)
+    Vendor:   Intel
+    VRAM:     128 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+- Completed reload, in  0.090 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\Unity WorkSpace\UnitySync\UnitySync.git\SyncTest\SyncTest_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 1b2c -> priority: 1 
+  Thread -> id: 8c0 -> priority: 1 
+JoinRandom
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Joined room
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Granted ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 1 from: 0 Time: 921
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)1 on Red Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 1 from: 0 Time: 687
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)1 on Red Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Granted ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 1 from: 0 Time: 953
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)1 on Red Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+TransferOwnership() view 1 to: 2 Time: 968
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipTransfer. ViewID 1 to: 2 Time: 46
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 2 from: 0 Time: 406
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)2 on Blue Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 2 from: 0 Time: 562
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)2 on Blue Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 2 from: 0 Time: 515
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)2 on Blue Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 2 from: 0 Time: 250
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)2 on Blue Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 2 from: 0 Time: 46
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)2 on Blue Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 2 from: 0 Time: 781
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)2 on Blue Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 93
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 140
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 515
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 609
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 984
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 46
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 62
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 625
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 703
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 406
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 468
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 15
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 109
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=2} ViewID: 2 from: 0 Time: 546
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #02 requests ownership of: View (0)2 on Blue Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Requesting ownership
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+RequestOwnership(): 1 from: 2 Time: 843
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=1} ViewID: 1 from: 2 Time: 937
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 2 isOwnerActive: True. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ownership transfer denied
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest: {245=System.Int32[], 254=3} ViewID: 1 from: 0 Time: 93
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipRequest PhotonView.ownershipTransfer: Request .ownerId: 0 isOwnerActive: False. This client's player: #01 '' {}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+OnOwnershipRequest(): Player #03 requests ownership of: View (0)1 on Red Object (scene).
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+TransferOwnership() view 1 to: 3 Time: 93
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
+Ev OwnershipTransfer. ViewID 1 to: 3 Time: 171
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
+
