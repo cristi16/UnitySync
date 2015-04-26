@@ -20,6 +20,7 @@ public class GizmoControllerCS : MonoBehaviour
 
     public Texture2D[] GizmoControlButtonImages;
     public int LayerID = 8;
+    public float gizmoDefaultScale = 2f;
     public Camera ActiveCamera = null;
 
     //Mode Settings
@@ -412,7 +413,7 @@ public class GizmoControllerCS : MonoBehaviour
 
         //Scale Gizmo relative to the the distance from the camera for consistant sizing
         float distance = Mathf.Abs(Vector3.Distance(Camera.main.transform.position, transform.position));
-        transform.localScale = new Vector3(-2.0f, 2.0f, 2.0f) * (distance / 8.0f);
+        transform.localScale = Vector3.one * gizmoDefaultScale * (distance / 8.0f);
 
         int layerMask = 1 << LayerID;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
