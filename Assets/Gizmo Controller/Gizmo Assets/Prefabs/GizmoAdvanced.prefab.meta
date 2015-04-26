@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 4ce9d921f72eb3d48a7ce06e40ed9e6e
+labels:
+- gizmo
+- controller
+- axis
+- handle
+- position
+- rotation
+- scale
+NativeFormatImporter:
+  userData: 
