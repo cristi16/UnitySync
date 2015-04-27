@@ -19,6 +19,7 @@ public class GizmoControllerCS : MonoBehaviour
     public float ScaleSnapIncrement = 1;
 
     public Texture2D[] GizmoControlButtonImages;
+    public int InteractableLayer = 9;
     public int LayerID = 8;
     public float gizmoDefaultScale = 2f;
     public Camera ActiveCamera = null;
@@ -418,6 +419,15 @@ public class GizmoControllerCS : MonoBehaviour
         int layerMask = 1 << LayerID;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        if (Input.GetMouseButtonDown(0))
+        {
+            int validHitMask = 1 << LayerID | 1 << InteractableLayer;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, validHitMask) == false && _showGizmo)
+            {
+                SelectedObject.GetComponent<InteractableObject>().DoClearSelection();
+                Hide();
+            }
+        }
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask) && !_ignoreRaycast)
         {
             if (!_draggingAxis)
