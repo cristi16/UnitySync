@@ -37,7 +37,7 @@ v2f vert(appdata v) {
 ENDCG
  
 	SubShader {
-		Tags { "Queue" = "Transparent" }
+		Tags { "Queue" = "Transparent - 1" }
  
 		// note that a vertex shader is specified here but its using the one above
 		Pass {
