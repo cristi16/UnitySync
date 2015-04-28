@@ -38,7 +38,7 @@ public class InteractableObject : MonoBehaviour
         IsBeingHovered = false;
     }
 
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         if (GizmoController == null)
             return;
@@ -59,6 +59,19 @@ public class InteractableObject : MonoBehaviour
         }
         Debug.Log("Requesting ownership");
         photonView.RequestOwnership();
+    }
+
+    void Update()
+    {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.D))
+        {
+            if(GizmoController.SelectedObject == this.transform)
+            {
+                InteractableObject clone = PhotonNetwork.Instantiate(gameObject.name.Replace("(Clone)", "").Trim(), transform.position, transform.rotation, 0).GetComponent<InteractableObject>();
+                clone.transform.localScale = transform.localScale;
+                clone.OnMouseDown();
+            }
+        }
     }
 
 

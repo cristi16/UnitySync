@@ -431,7 +431,7 @@ public class GizmoControllerCS : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask) && !_ignoreRaycast)
         {
             if (!_draggingAxis)
-            {
+            {   
                 if (hit.transform.name.Contains("X"))
                     _activeAxis = GIZMO_AXIS.X;
 
