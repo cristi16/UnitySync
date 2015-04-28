@@ -8,6 +8,7 @@ public class InteractableObject : MonoBehaviour
     public bool IsBeingHovered = false;
     public GizmoControllerCS GizmoController = null;
 
+    public bool IsDuplicate {get; set;}
     private PhotonView photonView;
 
     void Start()
@@ -22,6 +23,8 @@ public class InteractableObject : MonoBehaviour
         }
 
         this.photonView = GetComponent<PhotonView>();
+        if (this.IsDuplicate)
+            OnMouseDown();
     }
 
     void OnMouseEnter()
@@ -38,7 +41,7 @@ public class InteractableObject : MonoBehaviour
         IsBeingHovered = false;
     }
 
-    public void OnMouseDown()
+    void OnMouseDown()
     {
         if (GizmoController == null)
             return;
@@ -69,7 +72,7 @@ public class InteractableObject : MonoBehaviour
             {
                 InteractableObject clone = PhotonNetwork.Instantiate(gameObject.name.Replace("(Clone)", "").Trim(), transform.position, transform.rotation, 0).GetComponent<InteractableObject>();
                 clone.transform.localScale = transform.localScale;
-                clone.OnMouseDown();
+                clone.IsDuplicate = true;
             }
         }
     }
