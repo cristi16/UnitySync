@@ -29,6 +29,8 @@ public class InteractableObject : MonoBehaviour
 
     void OnMouseEnter()
     {
+        if (GameController.IsPlayMode) return;
+
         foreach (var renderer in GetComponentsInChildren<Renderer>())
             renderer.material.color = HilightColor;
         IsBeingHovered = true;
@@ -36,6 +38,8 @@ public class InteractableObject : MonoBehaviour
 
     void OnMouseExit()
     {
+        if (GameController.IsPlayMode) return;
+
         foreach (var renderer in GetComponentsInChildren<Renderer>())
             renderer.material.color = NormalColor;
         IsBeingHovered = false;
@@ -43,6 +47,8 @@ public class InteractableObject : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (GameController.IsPlayMode) return;
+
         if (GizmoController == null)
             return;
 

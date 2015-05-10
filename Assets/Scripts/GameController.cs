@@ -6,20 +6,22 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public List<Color> assignableColors;
-    public RawImage colorImage;
-    public Text nickname;
-    public GameObject loginUI;
+    public Transform otherPlayersGroup;
     public GameObject playerInfoUI;
+    public GameObject loginUI;
+    public GameObject teamUI;
     public static Color PlayerColor;
+    public static bool IsPlayMode;
 
     private Dictionary<int, int> takenColorIndices;
-
+    private Dictionary<int, PlayerData> playersData;
     private PhotonView view;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
         takenColorIndices = new Dictionary<int, int>();
+        playersData = new Dictionary<int, PlayerData>();
     }
 
     public void Connect()
@@ -33,6 +35,9 @@ public class GameController : MonoBehaviour
         while (takenColorIndices.Count != PhotonNetwork.playerList.Length - 1)
             yield return null;
 
+        teamUI.SetActive(true);
+        loginUI.SetActive(false);
+
         var pickedColor = Color.white;
         for(int i = 0; i < assignableColors.Count; i++)
         {
@@ -41,26 +46,30 @@ public class GameController : MonoBehaviour
             else
             {
                 pickedColor = assignableColors[i];
-                view.RPC("MarkAssignedColor", PhotonTargets.AllBuffered, i, PhotonNetwork.player.ID);
+                view.RPC("MarkAssignedColor", PhotonTargets.AllBuffered, i, PhotonNetwork.player.ID, PhotonNetwork.player.name);
                 break;
             }
         }
-        assignableColors.RemoveAt(0);
         PlayerColor = pickedColor;
-        playerInfoUI.SetActive(true);
-        loginUI.SetActive(false);
-        nickname.text += " " + PhotonNetwork.player.name;
-        colorImage.color = pickedColor;
 
         var dot = PhotonNetwork.Instantiate("PlayerDot", Vector3.zero, Quaternion.identity, 0);
         dot.transform.position = this.transform.position + transform.forward * (Camera.main.nearClipPlane + 2f);       
     }
 
     [RPC]
-    void MarkAssignedColor(int index, int playerID)
+    void MarkAssignedColor(int index, int playerID, string playerName)
     {
         Debug.Log("marking color index: " + index + " for player: " + playerID);
         takenColorIndices.Add(playerID, index);
+
+        var playerInfo = GameObject.Instantiate<GameObject>(playerInfoUI);
+        playerInfo.transform.SetParent(otherPlayersGroup, false);
+        playerInfo.GetComponent<Text>().text = playerName;
+        var colorImage = playerInfo.transform.GetChild(0).GetComponent<RawImage>();
+        colorImage.color = assignableColors[index];
+
+        var playerData = new PlayerData(playerName, assignableColors[index], playerInfo);
+        playersData.Add(playerID, playerData);
     }
 
     void OnJoinedLobby()
@@ -77,6 +86,8 @@ public class GameController : MonoBehaviour
     void OnPhotonPlayerDisconnected(PhotonPlayer oldPlayer)
     {
         takenColorIndices.Remove(oldPlayer.ID);
+        playersData[oldPlayer.ID].OnDisconnect();
+        playersData.Remove(oldPlayer.ID);
         Debug.Log("New Player Disconnected: " + oldPlayer.name + "[" + oldPlayer.ID + "]");
     }
 
