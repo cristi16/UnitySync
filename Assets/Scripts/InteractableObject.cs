@@ -3,19 +3,19 @@ using System.Collections;
 
 public class InteractableObject : MonoBehaviour
 {
-    private Color NormalColor;
-    private Color HilightColor;
+    [HideInInspector]
     public bool IsBeingHovered = false;
     private GizmoControllerCS GizmoController = null;
+    private GameController gameController;
 
     public bool IsDuplicate {get; set;}
+    private Transform overlay;
     private PhotonView photonView;
 
     void Start()
     {
-        NormalColor = GetComponentInChildren<Renderer>().material.color;
-        HilightColor = new Color(NormalColor.r * 1.2f, NormalColor.g * 1.2f, NormalColor.b * 1.2f, 1.0f);
         GizmoController = GameObject.FindGameObjectWithTag("Gizmo").GetComponent<GizmoControllerCS>();
+        gameController = FindObjectOfType<GameController>();
 
         if (GizmoController == null)
         {
@@ -32,7 +32,10 @@ public class InteractableObject : MonoBehaviour
         if (GameController.IsPlayMode) return;
 
         foreach (var renderer in GetComponentsInChildren<Renderer>())
-            renderer.material.color = HilightColor;
+        {
+            var oldColor = renderer.material.color;
+            renderer.material.color = new Color(oldColor.r * 1.2f, oldColor.g * 1.2f, oldColor.b * 1.2f, oldColor.a); ;
+        }
         IsBeingHovered = true;
     }
 
@@ -41,7 +44,10 @@ public class InteractableObject : MonoBehaviour
         if (GameController.IsPlayMode) return;
 
         foreach (var renderer in GetComponentsInChildren<Renderer>())
-            renderer.material.color = NormalColor;
+        {
+            var oldColor = renderer.material.color;
+            renderer.material.color = new Color(oldColor.r / 1.2f, oldColor.g / 1.2f, oldColor.b / 1.2f, oldColor.a); ;
+        }
         IsBeingHovered = false;
     }
 
@@ -135,17 +141,28 @@ public class InteractableObject : MonoBehaviour
     [RPC]
     void MarkSelection(float r, float g, float b)
     {
-        foreach(var renderer in GetComponentsInChildren<Renderer>())
+        if (overlay == null)
         {
-            renderer.material.SetColor("_OutlineColor", new Color(r, g, b));
-            renderer.material.SetFloat("_Outline", 0.005f);
+            var meshFilters = GetComponentsInChildren<MeshFilter>();
+            Bounds bounds = new Bounds();
+            foreach (var mf in meshFilters)
+                bounds.Encapsulate(mf.mesh.bounds);
+            overlay = Instantiate<Transform>(gameController.overlayCube);
+            overlay.localScale = bounds.size + Vector3.one * 0.2f;
+            overlay.position = bounds.center;
+            overlay.SetParent(transform, false);
+            overlay.GetComponent<Renderer>().material.color = new Color(r, g, b, 0.3f);
         }
+        else
+        {
+            overlay.gameObject.SetActive(true);
+        }
+
     }
 
     [RPC]
     void ClearSelection()
     {
-        foreach (var renderer in GetComponentsInChildren<Renderer>())
-            renderer.material.SetFloat("_Outline", 0f);
+        overlay.gameObject.SetActive(false);
     }
 }

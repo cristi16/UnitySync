@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject playerInfoUI;
     public GameObject loginUI;
     public GameObject teamUI;
+    public Transform overlayCube;
     public static Color PlayerColor;
     public static bool IsPlayMode;
 
