@@ -6,7 +6,7 @@ public class InteractableObject : MonoBehaviour
     private Color NormalColor;
     private Color HilightColor;
     public bool IsBeingHovered = false;
-    public GizmoControllerCS GizmoController = null;
+    private GizmoControllerCS GizmoController = null;
 
     public bool IsDuplicate {get; set;}
     private PhotonView photonView;

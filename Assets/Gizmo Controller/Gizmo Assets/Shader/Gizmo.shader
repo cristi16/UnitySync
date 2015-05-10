@@ -6,7 +6,7 @@ Shader "Gizmo" {
 
 	SubShader {
 
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+		Tags { "Queue"="Overlay" "IgnoreProjector"="True" "RenderType"="Overlay" }
 		Lighting Off Cull Off ZTest Always ZWrite Off Fog { Mode Off }
 		Blend SrcAlpha OneMinusSrcAlpha
 
