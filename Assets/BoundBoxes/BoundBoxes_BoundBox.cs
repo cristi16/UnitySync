@@ -54,6 +54,7 @@ public class BoundBoxes_BoundBox : MonoBehaviour {
 	}
 	
 	public void init() {
+        if (cameralines == null) return;
 		calculateBounds();
 		setPoints();
 		setLines();

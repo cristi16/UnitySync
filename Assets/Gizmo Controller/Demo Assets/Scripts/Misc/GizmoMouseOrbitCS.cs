@@ -122,6 +122,8 @@ public class GizmoMouseOrbitCS : MonoBehaviour
 
             if (target != null && Input.GetAxis("Mouse ScrollWheel") != 0)
             {
+                zoomSpeed = 28f + Mathf.Lerp(0, 100, Mathf.Abs(distance) / 500f);
+
                 distance -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
                 //distance = Mathf.Clamp(distance, zoomNearLimit, zoomFarLimit);
             }//if    	
@@ -145,6 +147,9 @@ public class GizmoMouseOrbitCS : MonoBehaviour
             Vector3 move;
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
+
+            moveSpeed = 10f + Mathf.Lerp(0, 100, Mathf.Abs(distance) / 500f);
+
             if (Input.GetKey("up") || upButtonPressed)
             {
                 dir = transform.position - targetPos;

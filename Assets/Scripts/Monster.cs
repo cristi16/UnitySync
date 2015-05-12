@@ -25,7 +25,7 @@ public class Monster : MonoBehaviour
         if (PlayMode.isPlayMode)
         {
             agent.enabled = true;
-            photonView.enabled = false;
+            photonView.synchronization = ViewSynchronization.Off;
             if(playerInRange)
             {
                 agent.SetDestination(player.position);
@@ -44,9 +44,17 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            agent.enabled = false;
-            photonView.enabled = true;
-            playerInRange = false;
+            if(agent.enabled == true)
+            {
+                agent.enabled = false;
+                playerInRange = false;
+                photonView.enabled = true;
+                transform.position = initialPosition;
+                transform.rotation = initialRotation;
+                photonView.synchronization = ViewSynchronization.UnreliableOnChange;
+                animation.Stop();
+            }
+
         }
            
     }
