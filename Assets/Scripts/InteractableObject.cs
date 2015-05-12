@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+
+[RequireComponent(typeof(BoundBoxes_BoundBox))]
+[RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(Collider))]
 public class InteractableObject : MonoBehaviour
 {
     [HideInInspector]
@@ -9,8 +13,8 @@ public class InteractableObject : MonoBehaviour
     private GameController gameController;
 
     public bool IsDuplicate {get; set;}
-    private Transform overlay;
     private PhotonView photonView;
+    private BoundBoxes_BoundBox boundingBox;
 
     void Start()
     {
@@ -25,6 +29,8 @@ public class InteractableObject : MonoBehaviour
         this.photonView = GetComponent<PhotonView>();
         if (this.IsDuplicate)
             OnMouseDown();
+        boundingBox = GetComponent<BoundBoxes_BoundBox>();
+        ClearSelection();
     }
 
     void OnMouseEnter()
@@ -141,28 +147,13 @@ public class InteractableObject : MonoBehaviour
     [RPC]
     void MarkSelection(float r, float g, float b)
     {
-        if (overlay == null)
-        {
-            var meshFilters = GetComponentsInChildren<MeshFilter>();
-            Bounds bounds = new Bounds();
-            foreach (var mf in meshFilters)
-                bounds.Encapsulate(mf.mesh.bounds);
-            overlay = Instantiate<Transform>(gameController.overlayCube);
-            overlay.localScale = bounds.size + Vector3.one * 0.2f;
-            overlay.position = bounds.center;
-            overlay.SetParent(transform, false);
-            overlay.GetComponent<Renderer>().material.color = new Color(r, g, b, 0.3f);
-        }
-        else
-        {
-            overlay.gameObject.SetActive(true);
-        }
-
+        boundingBox.enabled = true;
+        boundingBox.lineColor = new Color(r, g, b, 0.7f);
     }
 
     [RPC]
     void ClearSelection()
     {
-        overlay.gameObject.SetActive(false);
+        boundingBox.enabled = false;
     }
 }
