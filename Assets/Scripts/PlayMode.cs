@@ -7,7 +7,7 @@ public class PlayMode : MonoBehaviour
 
     private GameObject mainCamera;
     private GizmoControllerCS gizmoController;
-    private bool isPlayMode = false;
+    public static bool isPlayMode = false;
     private UnityEngine.UI.Text buttonText;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -19,6 +19,7 @@ public class PlayMode : MonoBehaviour
         gizmoController = GameObject.FindGameObjectWithTag("Gizmo").GetComponent<GizmoControllerCS>();
         initialPosition = firstPersonController.transform.position;
         initialRotation = firstPersonController.transform.rotation;
+        firstPersonController.SetActive(false);
     }
 
     public void TogglePlayMode()

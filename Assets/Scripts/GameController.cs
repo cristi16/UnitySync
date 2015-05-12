@@ -89,6 +89,10 @@ public class GameController : MonoBehaviour
         takenColorIndices.Remove(oldPlayer.ID);
         playersData[oldPlayer.ID].OnDisconnect();
         playersData.Remove(oldPlayer.ID);
+
+        foreach (var interactionObject in FindObjectsOfType<InteractableObject>())
+            interactionObject.DoClearSelection();
+
         Debug.Log("New Player Disconnected: " + oldPlayer.name + "[" + oldPlayer.ID + "]");
     }
 

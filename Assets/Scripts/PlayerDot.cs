@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerDot : MonoBehaviour
 {
     public float offsetFromNearPlane = 2f;
+    public float scaleRatio = 0.5f;
 
     PhotonView view;
     Transform cameraTransform;
@@ -31,9 +32,11 @@ public class PlayerDot : MonoBehaviour
 
     void Update()
     {
-        if(view.isMine)
+        if (view.isMine)
         {
-            transform.position = cameraTransform.position + cameraTransform.forward * offsetFromCamera;       
+            transform.position = cameraTransform.position + cameraTransform.forward * offsetFromCamera;
         }
+        //else
+           // transform.localScale = Vector3.Distance(transform.position, cameraTransform.position) * Vector3.one * scaleRatio;
     }
 }
