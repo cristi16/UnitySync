@@ -10,22 +10,33 @@ public class Monster : MonoBehaviour
     private bool playerInRange = false;
     private PhotonView photonView;
     private Animation animation;
+    private Transform offlineTransform;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         photonView = GetComponent<PhotonView>();
         player = FindObjectOfType<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform;
-        initialPosition = transform.position;
-        initialRotation = transform.rotation;
         animation = GetComponent<Animation>();
+        offlineTransform = new GameObject(name + "_OfflineTransform").transform;
+        offlineTransform.position = transform.position;
+        offlineTransform.localScale = transform.localScale;
+        offlineTransform.rotation = transform.rotation;
     }
 
     void Update()
     {
         if (PlayMode.isPlayMode)
         {
-            agent.enabled = true;
-            photonView.synchronization = ViewSynchronization.Off;
+            if(agent.enabled == false)
+            {
+                initialPosition = transform.position;
+                initialRotation = transform.rotation;
+                agent.enabled = true;
+                photonView.ObservedComponents.Clear();
+                photonView.ObservedComponents.Add(offlineTransform);
+            }
+
             if(playerInRange)
             {
                 agent.SetDestination(player.position);
@@ -48,10 +59,13 @@ public class Monster : MonoBehaviour
             {
                 agent.enabled = false;
                 playerInRange = false;
-                photonView.enabled = true;
                 transform.position = initialPosition;
                 transform.rotation = initialRotation;
-                photonView.synchronization = ViewSynchronization.UnreliableOnChange;
+                photonView.ObservedComponents.Clear();
+                photonView.ObservedComponents.Add(transform);
+                transform.position = offlineTransform.position;
+                transform.rotation = offlineTransform.rotation;
+                transform.localScale = offlineTransform.localScale;
                 animation.Stop();
             }
 
