@@ -28,10 +28,11 @@ public class InteractableObject : MonoBehaviour
         }
 
         this.photonView = GetComponent<PhotonView>();
+        boundingBox = GetComponent<BoundBoxes_BoundBox>();
         if (this.IsDuplicate)
             OnMouseDown();
-        boundingBox = GetComponent<BoundBoxes_BoundBox>();
-        ClearSelection();
+        else
+            ClearSelection();
     }
 
     void OnMouseEnter()
@@ -92,6 +93,15 @@ public class InteractableObject : MonoBehaviour
                 InteractableObject clone = PhotonNetwork.Instantiate(gameObject.name.Replace("(Clone)", "").Trim(), transform.position, transform.rotation, 0).GetComponent<InteractableObject>();
                 clone.transform.localScale = transform.localScale;
                 clone.IsDuplicate = true;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Delete))
+        {
+            if(GizmoController.SelectedObject == this.transform)
+            {
+                GizmoController.Hide();
+                PhotonNetwork.Destroy(gameObject);
             }
         }
     }
@@ -157,4 +167,6 @@ public class InteractableObject : MonoBehaviour
     {
         boundingBox.isEnabled = false;
     }
+
+    
 }
