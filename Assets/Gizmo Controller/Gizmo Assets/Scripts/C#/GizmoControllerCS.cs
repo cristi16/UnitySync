@@ -589,7 +589,7 @@ public class GizmoControllerCS : MonoBehaviour
                                     }//if
                                     else
                                     {
-                                        objMovement = transform.right * _translationDelta.x;
+                                        objMovement = Vector3.right * _translationDelta.x;
                                     }//else
 
                                     SelectedObject.transform.localScale += objMovement;
@@ -705,7 +705,7 @@ public class GizmoControllerCS : MonoBehaviour
                     switch (_mode)
                     {
                         case GIZMO_MODE.TRANSLATE:
-                            plane = new Plane(Vector3.up, transform.position);
+                            plane = new Plane(Vector3.forward, transform.position);
                             hitDistance = 0;
 
                             if (plane.Raycast(ray, out hitDistance))
