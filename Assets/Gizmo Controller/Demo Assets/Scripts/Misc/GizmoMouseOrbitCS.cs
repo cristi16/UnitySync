@@ -32,6 +32,8 @@ public class GizmoMouseOrbitCS : MonoBehaviour
     private bool rightButtonPressed = false;
     private bool upButtonPressed = false;
 
+    private bool isFocusing = false;
+
     // Use this for initialization
     void Start()
     {
@@ -96,6 +98,37 @@ public class GizmoMouseOrbitCS : MonoBehaviour
         ignoreHotControl = true;
     }//move
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(target.position, 1f);
+        Gizmos.DrawLine(transform.position, target.position);
+    }
+
+    IEnumerator Focus()
+    {
+        if (GC.SelectedObject == null) yield break;
+
+        isFocusing = true;
+
+        float focusTime = 0.4f;
+        var interactableObject = GC.SelectedObject.GetComponent<InteractableObject>();
+        var initialPosition = transform.position;
+        target.position = interactableObject.boundingBox.Bounds.center;
+
+        var boundsSize = interactableObject.boundingBox.Bounds.size;
+        distance = 10f + Mathf.Max(boundsSize.x, boundsSize.y, boundsSize.z);
+        var destination = transform.rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
+
+        for(float time = 0; time < focusTime; time += Time.deltaTime)
+        {
+            transform.position = Vector3.Lerp(initialPosition, destination, time / focusTime);
+            yield return null;
+        }
+
+        isFocusing = false;
+    }
+
     void LateUpdate()
     {
         //Here we check if the Gizmo Controller is assigned.
@@ -112,11 +145,17 @@ public class GizmoMouseOrbitCS : MonoBehaviour
         if (GUIUtility.hotControl != 0 && !ignoreHotControl)
             return;
 
-        if (!isEnabled)
+        if (!isEnabled || isFocusing)
             return;
 
         if (target)
         {
+            // Focus
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                StartCoroutine(Focus());
+                return;
+            }
 
             /*Rotation*/
 
@@ -262,7 +301,6 @@ public class GizmoMouseOrbitCS : MonoBehaviour
                     rightButtonPressed = false;
             }
 
-            Debug.DrawLine(transform.position, transform.position + transform.forward * distance, Color.green);
             if (Input.GetMouseButton(2))
             {
                 float adjustedMoveSpeed = Mathf.Clamp(moveSpeed + distance / 4f, moveSpeed / 2f, Mathf.Infinity);

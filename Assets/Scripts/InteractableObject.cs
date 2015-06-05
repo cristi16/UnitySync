@@ -14,7 +14,8 @@ public class InteractableObject : MonoBehaviour
 
     public bool IsDuplicate {get; set;}
     private PhotonView photonView;
-    private BoundBoxes_BoundBox boundingBox;
+    [HideInInspector]
+    public BoundBoxes_BoundBox boundingBox;
 
     void Start()
     {
@@ -147,13 +148,13 @@ public class InteractableObject : MonoBehaviour
     [RPC]
     void MarkSelection(float r, float g, float b)
     {
-        boundingBox.enabled = true;
+        boundingBox.isEnabled = true;
         boundingBox.lineColor = new Color(r, g, b, 0.7f);
     }
 
     [RPC]
     void ClearSelection()
     {
-        boundingBox.enabled = false;
+        boundingBox.isEnabled = false;
     }
 }

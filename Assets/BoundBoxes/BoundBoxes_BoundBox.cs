@@ -6,10 +6,20 @@ using System.Collections.Generic;
 public class BoundBoxes_BoundBox : MonoBehaviour {
 	
 	public bool colliderBased = false;
-	public bool permanent = false; //permanent//onMouseDown
+	public bool isEnabled = false;
 	
 	public Color lineColor = new Color(0f,1f, 0.4f,0.74f);
-
+    public Bounds Bounds
+    {
+        get
+        {
+            return bound;
+        }
+        private set
+        {
+            bound = value;
+        }
+    }
 	private Bounds bound;
 	
 	private Vector3[] corners;
@@ -58,15 +68,18 @@ public class BoundBoxes_BoundBox : MonoBehaviour {
 		calculateBounds();
 		setPoints();
 		setLines();
-		cameralines.setOutlines(lines,lineColor);
 	}
 	
     void Update()
     {
+        if (!isEnabled) return;
+
         init();
     }
 
 	void LateUpdate() {
+        if (!isEnabled) return;
+
 		cameralines.setOutlines(lines,lineColor);
 	}
 	
