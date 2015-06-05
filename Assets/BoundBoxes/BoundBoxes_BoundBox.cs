@@ -13,6 +13,7 @@ public class BoundBoxes_BoundBox : MonoBehaviour {
     {
         get
         {
+            calculateBounds();
             return bound;
         }
         private set
