@@ -6,7 +6,7 @@ public class GizmoMouseOrbitCS : MonoBehaviour
     public Transform target;
     public GizmoControllerCS GC;
     public float distance = 6.0f;
-    public float moveSpeed = 500.0f;
+    public float moveSpeed = 10f;
 
     public float xSpeed = 250.0f;
     public float ySpeed = 120.0f;
@@ -124,8 +124,14 @@ public class GizmoMouseOrbitCS : MonoBehaviour
             {
                 zoomSpeed = 28f + Mathf.Lerp(0, 100, Mathf.Abs(distance) / 500f);
 
-                distance -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-                //distance = Mathf.Clamp(distance, zoomNearLimit, zoomFarLimit);
+                float zoomStep = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
+                distance -= zoomStep;
+                //if (distance < 10f)
+                //{
+                //    distance = 10f;
+                //    target.position = transform.rotation * new Vector3(0.0f, 0.0f, zoomStep) + target.position;
+                //}
             }//if    	
 
             if (Input.GetAxis("Fire1") != 0)
@@ -147,8 +153,6 @@ public class GizmoMouseOrbitCS : MonoBehaviour
             Vector3 move;
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
-
-            moveSpeed = 10f + Mathf.Lerp(0, 100, Mathf.Abs(distance) / 500f);
 
             if (Input.GetKey("up") || upButtonPressed)
             {
@@ -258,10 +262,13 @@ public class GizmoMouseOrbitCS : MonoBehaviour
                     rightButtonPressed = false;
             }
 
+            Debug.DrawLine(transform.position, transform.position + transform.forward * distance, Color.green);
             if (Input.GetMouseButton(2))
             {
-                Vector3 hMove = -transform.right * (moveSpeed * 2.0f) * Time.deltaTime;
-                Vector3 vMove = -transform.up * (moveSpeed * 2.0f) * Time.deltaTime;
+                float adjustedMoveSpeed = Mathf.Clamp(moveSpeed + distance / 4f, moveSpeed / 2f, Mathf.Infinity);
+
+                Vector3 hMove = -transform.right * (adjustedMoveSpeed * 2.0f) * Time.deltaTime;
+                Vector3 vMove = -transform.up * (adjustedMoveSpeed * 2.0f) * Time.deltaTime;
 
                 pos += hMove * Input.GetAxis("Mouse X");
                 //pos.z += hMove.z*Input.GetAxis("Mouse X");
