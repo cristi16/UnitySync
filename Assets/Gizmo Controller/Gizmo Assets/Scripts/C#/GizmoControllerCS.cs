@@ -54,6 +54,8 @@ public class GizmoControllerCS : MonoBehaviour
 
     private bool _draggingAxis = false;
     private Vector3 _translationDelta = Vector3.zero;
+    private Vector3 initialScale = Vector3.zero;
+    private float axisLength = 70;
 
     private float _rotationSnapDelta = 0;
     private Vector3 _scaleSnapDelta = Vector3.zero;
@@ -495,8 +497,21 @@ public class GizmoControllerCS : MonoBehaviour
             float MouseXDelta = Input.GetAxis("Mouse X");
             float MouseYDelta = Input.GetAxis("Mouse Y");
             float snapValue;
-            _draggingAxis = true;
-            SetDragHilight(true);
+            if(!_draggingAxis)
+            {
+                _draggingAxis = true;
+                SetDragHilight(true);
+
+                initialScale = SelectedObject.transform.localScale;
+                Vector3 referenceVec = (_activeAxis == GIZMO_AXIS.X) ? Vector3.right : (_activeAxis == GIZMO_AXIS.Y ? Vector3.up : Vector3.forward);
+                Vector2 vecScreenSpace = (Camera.main.worldToCameraMatrix * referenceVec).normalized;
+                Vector3 pivot = Camera.main.WorldToScreenPoint(transform.position);
+                pivot.z = 0;
+                _translationDelta = Vector3.Project(Input.mousePosition - pivot, vecScreenSpace);
+                Debug.LogWarning("initial:" + Input.mousePosition);
+
+                axisLength = _translationDelta.magnitude;
+            }
 
             _currIntersectPosition = _lastIntersectPosition;
             switch (_activeAxis)
@@ -568,35 +583,35 @@ public class GizmoControllerCS : MonoBehaviour
                             break;
 
                         case GIZMO_MODE.SCALE:
-                            plane = new Plane(Vector3.forward, transform.position);
-                            hitDistance = 0;
-                            if (plane.Raycast(ray, out hitDistance))
+                            _currIntersectPosition = Input.mousePosition;
+                            _currIntersectPosition.z = 0;
+
+                            Vector2 rightScreenSpace = (Camera.main.worldToCameraMatrix * transform.right).normalized;
+                            Vector3 pivot = Camera.main.WorldToScreenPoint(transform.position);
+                            pivot.z = 0;
+                            _translationDelta = Vector3.Project(_currIntersectPosition - pivot, rightScreenSpace);
+                            Debug.LogWarning(_translationDelta);
+                            float sign = Mathf.Sign(Vector3.Dot(rightScreenSpace, _translationDelta.normalized));
+
+                            if (_translationDelta != Vector3.zero)
                             {
-                                _currIntersectPosition = GetIntersectPoint(hitDistance, ray);
-
-                                if (_lastIntersectPosition != Vector3.zero)
+                                if (Snapping && ScaleSnapIncrement > 0)
                                 {
-                                    _translationDelta = _currIntersectPosition - _lastIntersectPosition;
-                                    if (Snapping && ScaleSnapIncrement > 0)
-                                    {
-                                        _translationDelta *= SnappedScaleMultiplier;
+                                    float scaleSnapIncrementPixels = ScaleSnapIncrement * axisLength / initialScale.x;
 
-                                        _scaleSnapDelta.x += _translationDelta.x;
-                                        snapValue = Mathf.Round(_scaleSnapDelta.x / ScaleSnapIncrement) * ScaleSnapIncrement;
-                                        _scaleSnapDelta.x -= snapValue;
+                                    snapValue = Mathf.Round((_translationDelta.magnitude * sign - axisLength) / scaleSnapIncrementPixels) * ScaleSnapIncrement;
 
-                                        objMovement = Vector3.right * snapValue;
-                                    }//if
-                                    else
-                                    {
-                                        objMovement = Vector3.right * _translationDelta.x;
-                                    }//else
+                                    objMovement = Vector3.right * snapValue;
+                                    SelectedObject.transform.localScale = initialScale + objMovement;
+                                }
+                                else
+                                {
+                                    objMovement = Vector3.right * (_translationDelta.magnitude / axisLength * initialScale.x) * sign;
+                                    Vector3 baseScale = new Vector3(0f, SelectedObject.transform.localScale.y, SelectedObject.transform.localScale.z);
+                                    SelectedObject.transform.localScale = baseScale + objMovement;
+                                }
+                            }					
 
-                                    SelectedObject.transform.localScale += objMovement;
-                                }//if						
-                            }//if		
-
-                            _lastIntersectPosition = _currIntersectPosition;
                             break;
                     }//switch
                     break;
@@ -668,34 +683,33 @@ public class GizmoControllerCS : MonoBehaviour
                             break;
 
                         case GIZMO_MODE.SCALE:
-                            plane = new Plane(Vector3.forward, transform.position);
-                            hitDistance = 0;
-                            if (plane.Raycast(ray, out hitDistance))
+                            _currIntersectPosition = Input.mousePosition;
+                            _currIntersectPosition.z = 0;
+                            if(_lastIntersectPosition != Vector3.zero)
                             {
-                                _currIntersectPosition = GetIntersectPoint(hitDistance, ray);
+                                Vector2 upScreenSpace = (Camera.main.worldToCameraMatrix * transform.up).normalized;
 
-                                if (_lastIntersectPosition != Vector3.zero)
+                                _translationDelta = Vector3.Project(_currIntersectPosition - Camera.main.WorldToScreenPoint(transform.position), upScreenSpace);
+                                float sign = Mathf.Sign(Vector3.Dot(upScreenSpace, _translationDelta.normalized));
+                                if (_translationDelta != Vector3.zero)
                                 {
-                                    _translationDelta = _currIntersectPosition - _lastIntersectPosition;
                                     if (Snapping && ScaleSnapIncrement > 0)
                                     {
-                                        _translationDelta *= SnappedScaleMultiplier;
+                                        float scaleSnapIncrementPixels = ScaleSnapIncrement * axisLength / initialScale.y;
 
-                                        _scaleSnapDelta.y += _translationDelta.y;
-                                        snapValue = Mathf.Round(_scaleSnapDelta.y / ScaleSnapIncrement) * ScaleSnapIncrement;
-                                        _scaleSnapDelta.y -= snapValue;
+                                        snapValue = Mathf.Round((_translationDelta.magnitude * sign - axisLength) / scaleSnapIncrementPixels) * ScaleSnapIncrement;
 
                                         objMovement = Vector3.up * snapValue;
-                                    }//if
+                                        SelectedObject.transform.localScale = initialScale + objMovement;
+                                    }
                                     else
                                     {
-                                        objMovement = Vector3.up * _translationDelta.y;
-                                    }//else
-
-                                    SelectedObject.transform.localScale += objMovement;
-                                }//if						
-                            }//if		
-
+                                        objMovement = Vector3.up * (_translationDelta.magnitude / axisLength * initialScale.y) * sign;
+                                        Vector3 baseScale = new Vector3(SelectedObject.transform.localScale.x, 0f, SelectedObject.transform.localScale.z);
+                                        SelectedObject.transform.localScale = baseScale + objMovement;
+                                    }
+                                }					
+                            }	
                             _lastIntersectPosition = _currIntersectPosition;
                             break;
                     }//switch
@@ -769,34 +783,33 @@ public class GizmoControllerCS : MonoBehaviour
                             break;
 
                         case GIZMO_MODE.SCALE:
-                            plane = new Plane(Vector3.up, transform.position);
-                            hitDistance = 0;
-                            if (plane.Raycast(ray, out hitDistance))
+                            _currIntersectPosition = Input.mousePosition;
+                            _currIntersectPosition.z = 0;
+                            if(_lastIntersectPosition != Vector3.zero)
                             {
-                                _currIntersectPosition = GetIntersectPoint(hitDistance, ray);
+                                Vector2 forwardScreenSpace = (Camera.main.worldToCameraMatrix * transform.forward).normalized;
 
-                                if (_lastIntersectPosition != Vector3.zero)
+                                _translationDelta = Vector3.Project(_currIntersectPosition - Camera.main.WorldToScreenPoint(transform.position), forwardScreenSpace);
+                                float sign = Mathf.Sign(Vector3.Dot(forwardScreenSpace, _translationDelta.normalized));
+                                if (_translationDelta != Vector3.zero)
                                 {
-                                    _translationDelta = _currIntersectPosition - _lastIntersectPosition;
                                     if (Snapping && ScaleSnapIncrement > 0)
                                     {
-                                        _translationDelta *= SnappedScaleMultiplier;
+                                        float scaleSnapIncrementPixels = ScaleSnapIncrement * axisLength / initialScale.z;
 
-                                        _scaleSnapDelta.z += _translationDelta.z;
-                                        snapValue = Mathf.Round(_scaleSnapDelta.z / ScaleSnapIncrement) * ScaleSnapIncrement;
-                                        _scaleSnapDelta.z -= snapValue;
+                                        snapValue = Mathf.Round((_translationDelta.magnitude * sign - axisLength) / scaleSnapIncrementPixels) * ScaleSnapIncrement;
 
                                         objMovement = Vector3.forward * snapValue;
-                                    }//if
+                                        SelectedObject.transform.localScale = initialScale + objMovement;
+                                    }
                                     else
                                     {
-                                        objMovement = Vector3.forward * _translationDelta.z;
-                                    }//else
-
-                                    SelectedObject.transform.localScale += objMovement;
-                                }//if						
-                            }//if		
-
+                                        objMovement = Vector3.forward * (_translationDelta.magnitude / axisLength * initialScale.z) * sign;
+                                        Vector3 baseScale = new Vector3(SelectedObject.transform.localScale.x, SelectedObject.transform.localScale.y, 0f);
+                                        SelectedObject.transform.localScale = baseScale + objMovement;
+                                    }
+                                }					
+                            }	
                             _lastIntersectPosition = _currIntersectPosition;
                             break;
                     }//switch

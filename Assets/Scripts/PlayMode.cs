@@ -20,6 +20,7 @@ public class PlayMode : MonoBehaviour
         initialPosition = firstPersonController.transform.position;
         initialRotation = firstPersonController.transform.rotation;
         firstPersonController.SetActive(false);
+        buttonText.text = isPlayMode ? "Stop" : "Play";
     }
 
     public void TogglePlayMode()
