@@ -57,8 +57,8 @@ public class GameController : MonoBehaviour
         }
         PlayerColor = pickedColor;
 
-        var dot = PhotonNetwork.Instantiate("PlayerDot", Vector3.zero, Quaternion.identity, 0);
-        dot.transform.position = this.transform.position + transform.forward * (Camera.main.nearClipPlane + 2f);       
+        var position = this.transform.position + transform.forward * (Camera.main.nearClipPlane + 2f);       
+        var dot = PhotonNetwork.Instantiate("PlayerDot", position, Quaternion.identity, 0);
     }
 
     [RPC]

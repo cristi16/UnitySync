@@ -5,10 +5,12 @@ public class PlayerDot : MonoBehaviour
 {
     public float offsetFromNearPlane = 2f;
     public float scaleRatio = 0.5f;
+    public float minDistanceToScaleFrom = 1f;
 
     PhotonView view;
     Transform cameraTransform;
     float offsetFromCamera;
+    bool firstLoop = true;
 
     void Start()
     {
@@ -20,6 +22,9 @@ public class PlayerDot : MonoBehaviour
         {
             view.RPC("Initialize", PhotonTargets.OthersBuffered, GameController.PlayerColor.r, GameController.PlayerColor.g, GameController.PlayerColor.b);
         }
+
+        transform.localScale = Vector3.one * minDistanceToScaleFrom * scaleRatio;
+        StartCoroutine(FakeUpdate());
     }
 
 
@@ -30,13 +35,23 @@ public class PlayerDot : MonoBehaviour
         GetComponent<Renderer>().material.color = new Color(r, g, b);
     }
 
-    void Update()
+    IEnumerator FakeUpdate()
     {
-        if (view.isMine)
+        yield return new WaitForSeconds(1f);
+
+        while(true)
         {
-            transform.position = cameraTransform.position + cameraTransform.forward * offsetFromCamera;
+            if (view.isMine)
+            {
+                transform.position = cameraTransform.position + cameraTransform.forward * offsetFromCamera;
+            }
+            else
+            {
+                var distance = Vector3.Distance(transform.position, cameraTransform.position);
+                if(distance > minDistanceToScaleFrom)
+                    transform.localScale =  Vector3.one * distance * scaleRatio;
+            }
+            yield return null;
         }
-        //else
-           // transform.localScale = Vector3.Distance(transform.position, cameraTransform.position) * Vector3.one * scaleRatio;
     }
 }
