@@ -731,7 +731,7 @@ public class GizmoControllerCS : MonoBehaviour
                     {
                         case GIZMO_MODE.TRANSLATE:
                             #region Z_Translate
-                            plane = new Plane(Vector3.forward, transform.position);
+                            plane = new Plane(Vector3.up, transform.position);
                             hitDistance = 0;
 
                             if (plane.Raycast(ray, out hitDistance))
