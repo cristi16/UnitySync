@@ -98,7 +98,7 @@ public class GizmoControllerCS : MonoBehaviour
 
     //Make the gizmo visible
     //Pass in GIZMO_MODE value which will set the current mode of the gizmo control
-    public void Show(GIZMO_MODE mode)
+    public void Show()
     {
         if (SelectedObject == null)
             return;
@@ -112,7 +112,7 @@ public class GizmoControllerCS : MonoBehaviour
                 t.GetComponent<Collider>().isTrigger = false;
         }//for
 
-        SetMode(mode);
+        SetMode(_mode);
         _showGizmo = true;
     }//Show
 
@@ -382,7 +382,7 @@ public class GizmoControllerCS : MonoBehaviour
 
     void Update()
     {
-        if (!_showGizmo || SelectedObject == null)
+        if (!_showGizmo || SelectedObject == null || GameController.IsConnected == false)
             return;
 
         if (EnableShortcutKeys)
@@ -417,6 +417,9 @@ public class GizmoControllerCS : MonoBehaviour
         //Scale Gizmo relative to the the distance from the camera for consistant sizing
         float distance = Mathf.Abs(Vector3.Distance(Camera.main.transform.position, transform.position));
         transform.localScale = Vector3.one * gizmoDefaultScale * (distance / 8.0f);
+
+        if (UIController.OverUI())
+            return;
 
         int layerMask = 1 << LayerID;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -840,6 +843,8 @@ public class GizmoControllerCS : MonoBehaviour
     public void SetMode(GIZMO_MODE mode)
     {
         _mode = mode;
+
+        if (SelectedObject == null) return;
 
         switch (_mode)
         {

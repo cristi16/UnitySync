@@ -37,7 +37,10 @@ public class InteractableObject : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (GameController.IsPlayMode) return;
+        if (UIController.OverUI())
+            return;
+
+        if (GameController.IsPlayMode || GameController.IsConnected == false) return;
 
         foreach (var renderer in GetComponentsInChildren<Renderer>())
         {
@@ -49,7 +52,10 @@ public class InteractableObject : MonoBehaviour
 
     void OnMouseExit()
     {
-        if (GameController.IsPlayMode) return;
+        if (UIController.OverUI())
+            return;
+
+        if (GameController.IsPlayMode || GameController.IsConnected == false) return;
 
         foreach (var renderer in GetComponentsInChildren<Renderer>())
         {
@@ -61,7 +67,10 @@ public class InteractableObject : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (GameController.IsPlayMode) return;
+        if (UIController.OverUI())
+            return;
+
+        if (GameController.IsPlayMode || GameController.IsConnected == false) return;
 
         if (GizmoController == null)
             return;
@@ -144,7 +153,7 @@ public class InteractableObject : MonoBehaviour
         GizmoController.SetSelectedObject(transform);
 
         if (GizmoController.IsHidden())
-            GizmoController.Show(GizmoControllerCS.GIZMO_MODE.TRANSLATE);
+            GizmoController.Show();
 
         photonView.RPC("MarkSelection", PhotonTargets.OthersBuffered, GameController.PlayerColor.r, GameController.PlayerColor.g, GameController.PlayerColor.b);
     }

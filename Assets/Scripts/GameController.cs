@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public Transform overlayCube;
     public static Color PlayerColor;
     public static bool IsPlayMode;
+    public static bool IsConnected = false;
 
     private Dictionary<int, int> takenColorIndices;
     private Dictionary<int, PlayerData> playersData;
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
         view = GetComponent<PhotonView>();
         takenColorIndices = new Dictionary<int, int>();
         playersData = new Dictionary<int, PlayerData>();
+        GameObject.FindGameObjectWithTag("FPS").SetActive(false);
     }
 
     public void Connect()
@@ -38,6 +40,7 @@ public class GameController : MonoBehaviour
 
         teamUI.SetActive(true);
         loginUI.SetActive(false);
+        IsConnected = true;
 
         var pickedColor = Color.white;
         for(int i = 0; i < assignableColors.Count; i++)
@@ -65,7 +68,8 @@ public class GameController : MonoBehaviour
 
         var playerInfo = GameObject.Instantiate<GameObject>(playerInfoUI);
         playerInfo.transform.SetParent(otherPlayersGroup, false);
-        playerInfo.GetComponent<Text>().text = playerName;
+        playerInfo.GetComponent<Text>().text = "     " + playerName;
+        playerInfo.GetComponent<Text>().color = assignableColors[index];
         var colorImage = playerInfo.transform.GetChild(0).GetComponent<RawImage>();
         colorImage.color = assignableColors[index];
 

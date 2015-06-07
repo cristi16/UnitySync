@@ -145,7 +145,10 @@ public class GizmoMouseOrbitCS : MonoBehaviour
         if (GUIUtility.hotControl != 0 && !ignoreHotControl)
             return;
 
-        if (!isEnabled || isFocusing)
+        if (!isEnabled || isFocusing || GameController.IsConnected == false)
+            return;
+
+        if (UIController.OverUI())
             return;
 
         if (target)
@@ -173,7 +176,7 @@ public class GizmoMouseOrbitCS : MonoBehaviour
                 //}
             }//if    	
 
-            if (Input.GetAxis("Fire1") != 0)
+            if (Input.GetAxis("Fire2") != 0)
             {
                 x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
                 y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
