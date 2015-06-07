@@ -523,6 +523,7 @@ public class GizmoControllerCS : MonoBehaviour
                     switch (_mode)
                     {
                         case GIZMO_MODE.TRANSLATE:
+                            #region X_Translate
                             //Vector3 xPlaneVec = new Vector3(0.0f, Camera.main.transform.position.y - transform.position.y, Camera.main.transform.position.z - transform.position.z);
                             //xPlaneVec.Normalize();
                             plane = new Plane(Vector3.forward, transform.position);
@@ -557,8 +558,9 @@ public class GizmoControllerCS : MonoBehaviour
 
                             _lastIntersectPosition = _currIntersectPosition;
                             break;
-
+                        #endregion X_Translate
                         case GIZMO_MODE.ROTATE:
+                            #region X_Rotate
                             var rotXDelta = MouseXDelta * Time.deltaTime;
 
                             if (Snapping && AngleSnapIncrement > 0)
@@ -584,8 +586,9 @@ public class GizmoControllerCS : MonoBehaviour
 
                             _XRotationDisplayValue = ClampRotationAngle((float)_XRotationDisplayValue);
                             break;
-
+                        #endregion X_Rotate
                         case GIZMO_MODE.SCALE:
+                            #region X_Scale
                             _currIntersectPosition = Input.mousePosition;
                             _currIntersectPosition.z = 0;
 
@@ -616,6 +619,7 @@ public class GizmoControllerCS : MonoBehaviour
                             }					
 
                             break;
+                        #endregion X_Scale
                     }//switch
                     break;
 
@@ -623,6 +627,7 @@ public class GizmoControllerCS : MonoBehaviour
                     switch (_mode)
                     {
                         case GIZMO_MODE.TRANSLATE:
+                            #region Y_Translate
                             plane = new Plane(Vector3.forward, transform.position);
                             hitDistance = 0;
 
@@ -658,8 +663,9 @@ public class GizmoControllerCS : MonoBehaviour
 
                             _lastIntersectPosition = _currIntersectPosition;
                             break;
-
+                        #endregion Y_Translate
                         case GIZMO_MODE.ROTATE:
+                            #region Y_Rotate
                             var rotYDelta = MouseXDelta * Time.deltaTime;
 
                             if (Snapping && AngleSnapIncrement > 0)
@@ -684,8 +690,9 @@ public class GizmoControllerCS : MonoBehaviour
 
                             _YRotationDisplayValue = ClampRotationAngle((float)_YRotationDisplayValue);
                             break;
-
+                            #endregion Y_Rotate
                         case GIZMO_MODE.SCALE:
+                            #region Y_Scale
                             _currIntersectPosition = Input.mousePosition;
                             _currIntersectPosition.z = 0;
                             if(_lastIntersectPosition != Vector3.zero)
@@ -715,6 +722,7 @@ public class GizmoControllerCS : MonoBehaviour
                             }	
                             _lastIntersectPosition = _currIntersectPosition;
                             break;
+                            #endregion Y_Scale
                     }//switch
                     break;
 
@@ -722,6 +730,7 @@ public class GizmoControllerCS : MonoBehaviour
                     switch (_mode)
                     {
                         case GIZMO_MODE.TRANSLATE:
+                            #region Z_Translate
                             plane = new Plane(Vector3.forward, transform.position);
                             hitDistance = 0;
 
@@ -757,8 +766,9 @@ public class GizmoControllerCS : MonoBehaviour
 
                             _lastIntersectPosition = _currIntersectPosition;
                             break;
-
+                            #endregion Z_Translate
                         case GIZMO_MODE.ROTATE:
+                            #region Z_Rotate
                             var rotZDelta = MouseXDelta * Time.deltaTime;
 
                             if (Snapping && AngleSnapIncrement > 0)
@@ -784,8 +794,9 @@ public class GizmoControllerCS : MonoBehaviour
 
                             _ZRotationDisplayValue = ClampRotationAngle((float)_ZRotationDisplayValue);
                             break;
-
+                            #endregion Z_Rotate
                         case GIZMO_MODE.SCALE:
+                            #region Z_Scale
                             _currIntersectPosition = Input.mousePosition;
                             _currIntersectPosition.z = 0;
                             if(_lastIntersectPosition != Vector3.zero)
@@ -815,6 +826,7 @@ public class GizmoControllerCS : MonoBehaviour
                             }	
                             _lastIntersectPosition = _currIntersectPosition;
                             break;
+                            #endregion Z_Scale
                     }//switch
                     break;
             }//switch
