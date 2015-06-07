@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     private Dictionary<int, int> takenColorIndices;
     private Dictionary<int, PlayerData> playersData;
     private PhotonView view;
+    private bool joinedLobby = false;
 
     void Start()
     {
@@ -25,15 +26,12 @@ public class GameController : MonoBehaviour
         takenColorIndices = new Dictionary<int, int>();
         playersData = new Dictionary<int, PlayerData>();
         GameObject.FindGameObjectWithTag("FPS").SetActive(false);
+        InitialConnect();
     }
 
-    public void Connect()
+    public void InitialConnect()
     {
-        PhotonNetwork.player.name = GameObject.FindGameObjectWithTag("PlayerName").GetComponent<UnityEngine.UI.Text>().text;
         PhotonNetwork.ConnectUsingSettings("0.1");
-        var connectText = GameObject.FindGameObjectWithTag("ConnectButton").GetComponentInChildren<Text>();
-        connectText.fontSize = 16;
-        connectText.text = "Joining co-op group..";
     }
 
     public IEnumerator Initialize()
@@ -82,7 +80,24 @@ public class GameController : MonoBehaviour
 
     void OnJoinedLobby()
     {
+        joinedLobby = true;
+    }
+
+    public void Connect()
+    {
         Debug.Log("JoinRandom");
+        PhotonNetwork.player.name = GameObject.FindGameObjectWithTag("PlayerName").GetComponent<UnityEngine.UI.Text>().text;
+        var connectText = GameObject.FindGameObjectWithTag("ConnectButton").GetComponentInChildren<Text>();
+        connectText.fontSize = 16;
+        connectText.text = "Joining co-op group..";
+
+        StartCoroutine(ConnectToRoom());
+    }
+
+    IEnumerator ConnectToRoom()
+    {
+        while (!joinedLobby)
+            yield return null;
         PhotonNetwork.JoinRandomRoom();
     }
 
