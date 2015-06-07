@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
 
         var playerInfo = GameObject.Instantiate<GameObject>(playerInfoUI);
         playerInfo.transform.SetParent(otherPlayersGroup, false);
-        playerInfo.GetComponent<Text>().text = "     " + playerName;
+        playerInfo.GetComponent<Text>().text = "      " + playerName;
         playerInfo.GetComponent<Text>().color = assignableColors[index];
         var colorImage = playerInfo.transform.GetChild(0).GetComponent<RawImage>();
         colorImage.color = assignableColors[index];
