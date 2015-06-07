@@ -30,7 +30,10 @@ public class GameController : MonoBehaviour
     public void Connect()
     {
         PhotonNetwork.player.name = GameObject.FindGameObjectWithTag("PlayerName").GetComponent<UnityEngine.UI.Text>().text;
-        PhotonNetwork.ConnectUsingSettings("0.1");     
+        PhotonNetwork.ConnectUsingSettings("0.1");
+        var connectText = GameObject.FindGameObjectWithTag("ConnectButton").GetComponentInChildren<Text>();
+        connectText.fontSize = 16;
+        connectText.text = "Joining co-op group..";
     }
 
     public IEnumerator Initialize()
