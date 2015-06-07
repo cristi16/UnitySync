@@ -32,7 +32,10 @@ public class PlayerDot : MonoBehaviour
     void Initialize(float r, float g, float b)
     {
         gameObject.layer = LayerMask.NameToLayer("Default");
-        GetComponent<Renderer>().material.color = new Color(r, g, b);
+        foreach(Transform child in gameObject.transform)
+            child.gameObject.layer = LayerMask.NameToLayer("Default");
+        foreach(var rend in GetComponentsInChildren<Renderer>())
+            rend.material.color = new Color(r, g, b);
     }
 
     IEnumerator FakeUpdate()
@@ -44,6 +47,7 @@ public class PlayerDot : MonoBehaviour
             if (view.isMine)
             {
                 transform.position = cameraTransform.position + cameraTransform.forward * offsetFromCamera;
+                transform.rotation = cameraTransform.rotation;
             }
             else
             {
