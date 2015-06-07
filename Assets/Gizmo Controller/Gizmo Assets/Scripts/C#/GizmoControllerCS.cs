@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class GizmoControllerCS : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class GizmoControllerCS : MonoBehaviour
     public string RotateShortcutKey = "2";
     public string ScaleShortcutKey = "3";
     public string SnapShortcutKey = "s";
+
+    public Toggle translateToggle;
+    public Toggle rotateToggle;
+    public Toggle scaleToggle;
 
     #endregion
 
@@ -382,34 +387,43 @@ public class GizmoControllerCS : MonoBehaviour
 
     void Update()
     {
-        if (!_showGizmo || SelectedObject == null || GameController.IsConnected == false)
-            return;
-
         if (EnableShortcutKeys)
         {
             if (Input.GetKeyUp(TranslateShortcutKey))
             {
                 if (AllowTranslate)
+                {
                     SetMode(GIZMO_MODE.TRANSLATE);
+                    translateToggle.isOn = true;
+                }
             }//if
 
             if (Input.GetKeyUp(RotateShortcutKey))
             {
                 if (AllowRotate)
+                {
                     SetMode(GIZMO_MODE.ROTATE);
+                    rotateToggle.isOn = true;
+                }
             }//if
 
             if (Input.GetKeyUp(ScaleShortcutKey))
             {
                 if (AllowScale)
+                {
                     SetMode(GIZMO_MODE.SCALE);
+                    scaleToggle.isOn = true;
+                }
             }//if
-
-            if (Input.GetKeyUp(SnapShortcutKey))
-            {
-                ToggleSnapping();
-            }//if
+            // disabled snapping cause UI does not support it
+            //if (Input.GetKeyUp(SnapShortcutKey))
+            //{
+            //    ToggleSnapping();
+            //}//if
         }//if
+
+        if (!_showGizmo || SelectedObject == null || GameController.IsConnected == false)
+            return;
 
         AxisSpinner.Update();
         SnapSpinner.Update();
