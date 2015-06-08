@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
 
         var playerInfo = GameObject.Instantiate<GameObject>(playerInfoUI);
         playerInfo.transform.SetParent(otherPlayersGroup, false);
-        playerInfo.GetComponent<Text>().text = "        " + playerName.Trim(new char[] {'\n'});
+        playerInfo.GetComponent<Text>().text = "       " + playerName.Trim(new char[] { '\n' });
         playerInfo.GetComponent<Text>().color = assignableColors[index];
         var colorImage = playerInfo.transform.GetChild(0).GetComponent<RawImage>();
         colorImage.color = assignableColors[index];
@@ -88,7 +88,7 @@ public class GameController : MonoBehaviour
         Debug.Log("JoinRandom");
         PhotonNetwork.player.name = GameObject.FindGameObjectWithTag("PlayerName").GetComponent<UnityEngine.UI.Text>().text;
         var connectText = GameObject.FindGameObjectWithTag("ConnectButton").GetComponentInChildren<Text>();
-        connectText.fontSize = 16;
+        connectText.fontSize = 25;
         connectText.text = "Joining co-op group..";
 
         StartCoroutine(ConnectToRoom());
