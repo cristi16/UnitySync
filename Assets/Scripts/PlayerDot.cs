@@ -67,6 +67,13 @@ public class PlayerDot : MonoBehaviour
             }
             else
             {
+                if (GameController.IsPlayMode)
+                {
+                    yield return null;
+                    SwapGfx(false);
+                    continue;
+                }
+
                 var distance = Vector3.Distance(transform.position, cameraTransform.position);
                 var screenPos = Camera.main.WorldToScreenPoint(transform.position);
                 Vector2 localPoint;
@@ -77,7 +84,6 @@ public class PlayerDot : MonoBehaviour
                 {
                     if (!guiMode)
                         SwapGfx(true);
-                    Debug.Log(screenPos.z);
                     if (screenPos.z < offsetFromCamera)
                     {
                         localPoint.x = localPoint.x > playerUIPanel.rect.width / 2f ? 0f : playerUIPanel.rect.width;
@@ -102,6 +108,9 @@ public class PlayerDot : MonoBehaviour
 
     private void SwapGfx(bool displayGUI)
     {
+        if (guiMode == displayGUI)
+            return;
+
         guiMode = displayGUI;
         playerUI.gameObject.SetActive(displayGUI);
         foreach (var rend in GetComponentsInChildren<MeshRenderer>())
