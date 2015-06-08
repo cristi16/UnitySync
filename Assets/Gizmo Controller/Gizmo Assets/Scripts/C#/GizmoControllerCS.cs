@@ -520,12 +520,13 @@ public class GizmoControllerCS : MonoBehaviour
                 SetDragHilight(true);
 
                 initialScale = SelectedObject.transform.localScale;
-                Vector3 referenceVec = (_activeAxis == GIZMO_AXIS.X) ? Vector3.right : (_activeAxis == GIZMO_AXIS.Y ? Vector3.up : Vector3.forward);
+                Vector3 referenceVec = (_activeAxis == GIZMO_AXIS.X) ? transform.right : (_activeAxis == GIZMO_AXIS.Y ? transform.up : transform.forward);
                 Vector2 vecScreenSpace = (Camera.main.worldToCameraMatrix * referenceVec).normalized;
                 Vector3 pivot = Camera.main.WorldToScreenPoint(transform.position);
                 pivot.z = 0;
-                _translationDelta = Vector3.Project(Input.mousePosition - pivot, vecScreenSpace);
-                Debug.LogWarning("initial:" + Input.mousePosition);
+                _currIntersectPosition = Input.mousePosition;
+                _currIntersectPosition.z = 0;
+                _translationDelta = Vector3.Project(_currIntersectPosition - pivot, vecScreenSpace);
 
                 axisLength = _translationDelta.magnitude;
             }
@@ -610,7 +611,6 @@ public class GizmoControllerCS : MonoBehaviour
                             Vector3 pivot = Camera.main.WorldToScreenPoint(transform.position);
                             pivot.z = 0;
                             _translationDelta = Vector3.Project(_currIntersectPosition - pivot, rightScreenSpace);
-                            Debug.LogWarning(_translationDelta);
                             float sign = Mathf.Sign(Vector3.Dot(rightScreenSpace, _translationDelta.normalized));
 
                             if (_translationDelta != Vector3.zero)
