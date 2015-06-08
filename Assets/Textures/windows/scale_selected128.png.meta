@@ -6,14 +6,14 @@ TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
-    mipMapMode: 0
+    mipMapMode: 1
     enableMipMap: 1
     linearTexture: 0
-    correctGamma: 0
-    fadeOut: 0
-    borderMipMap: 0
-    mipMapFadeDistanceStart: 1
-    mipMapFadeDistanceEnd: 3
+    correctGamma: 1
+    fadeOut: 1
+    borderMipMap: 1
+    mipMapFadeDistanceStart: 7
+    mipMapFadeDistanceEnd: 9
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
@@ -26,10 +26,10 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: 4
   maxTextureSize: 128
   textureSettings:
-    filterMode: 0
+    filterMode: 1
     aniso: 9
     mipBias: -1
     wrapMode: 1
