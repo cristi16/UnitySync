@@ -167,8 +167,11 @@ public class GizmoMouseOrbitCS : MonoBehaviour
                 zoomSpeed = 28f + Mathf.Lerp(0, 100, Mathf.Abs(distance) / 500f);
 
                 float zoomStep = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-
+#if UNITY_STANDALONE_OSX
+                distance += zoomStep;
+#else
                 distance -= zoomStep;
+#endif
                 //if (distance < 10f)
                 //{
                 //    distance = 10f;

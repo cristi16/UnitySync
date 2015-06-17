@@ -78,6 +78,30 @@ public class GameController : MonoBehaviour
         playersData.Add(playerID, playerData);
     }
 
+    public void Disconnect()
+    {
+        teamUI.SetActive(false);
+        loginUI.SetActive(true);
+        IsConnected = false;
+
+        playersData[PhotonNetwork.player.ID].OnDisconnect();
+        playersData.Clear();
+        takenColorIndices.Clear();
+
+        foreach (Transform playerInfo in otherPlayersGroup)
+            GameObject.Destroy(playerInfo.gameObject);
+
+        var inputField = GameObject.FindGameObjectWithTag("PlayerName").transform.parent.GetComponent<UnityEngine.UI.InputField>();
+        inputField.Select();
+        inputField.text = string.Empty;
+        var connectText = GameObject.FindGameObjectWithTag("ConnectButton").GetComponentInChildren<Text>();
+        connectText.fontSize = 29;
+        connectText.text = "Start creating..";
+        joinedLobby = false;
+
+        Application.LoadLevel(0);
+    }
+
     void OnJoinedLobby()
     {
         joinedLobby = true;
@@ -85,6 +109,9 @@ public class GameController : MonoBehaviour
 
     public void Connect()
     {
+        if(!joinedLobby)
+            PhotonNetwork.ConnectUsingSettings("0.1");
+
         Debug.Log("JoinRandom");
         PhotonNetwork.player.name = GameObject.FindGameObjectWithTag("PlayerName").GetComponent<UnityEngine.UI.Text>().text;
         var connectText = GameObject.FindGameObjectWithTag("ConnectButton").GetComponentInChildren<Text>();

@@ -20,14 +20,14 @@ public class PlayMode : MonoBehaviour
         initialPosition = firstPersonController.transform.position;
         initialRotation = firstPersonController.transform.rotation;
         firstPersonController.SetActive(false);
-        buttonText.text = isPlayMode ? "Stop" : "Play";
+        buttonText.text = isPlayMode ? "Exit Play Mode" : "Play";
     }
 
     public void TogglePlayMode()
     {
         isPlayMode = !isPlayMode;
 
-        buttonText.text = isPlayMode ? "Stop" : "Play";
+        buttonText.text = isPlayMode ? "Exit Play Mode" : "Play";
         mainCamera.SetActive(!isPlayMode);
         firstPersonController.SetActive(isPlayMode);
 

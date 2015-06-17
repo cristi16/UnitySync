@@ -60,6 +60,12 @@ public class PlayerDot : MonoBehaviour
 
         while(true)
         {
+            if(GameController.IsConnected == false)
+            {
+                yield return null;
+                continue;
+            }
+
             if (view.isMine)
             {
                 transform.position = cameraTransform.position + cameraTransform.forward * offsetFromCamera;
